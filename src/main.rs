@@ -8,6 +8,7 @@ use std::os::unix::{fs::OpenOptionsExt, io::OwnedFd};
 use std::path::Path;
 mod gesture_handler;
 mod configuration;
+mod gesture_listener;
 
 struct Interface;
 

@@ -2,6 +2,8 @@ use std::fs;
 
 use serde::Deserialize;
 
+use crate::gesture_listener::{GestureListener, ThreeFingerSwipeGradualListener, ThreeFingerSwipeListener, FourFingerSwipeListener, PinchListener, SpreadListener, HoldListener};
+
 #[derive(Deserialize)]
 pub struct Config {
     pub gestures: Vec<Gesture>,
@@ -9,6 +11,10 @@ pub struct Config {
 
 #[derive(Deserialize)]
 pub enum Gesture {
+    ThreeFingerSwipeGradual {
+        direction: Direction,
+        action: String,
+    },
     ThreeFingerSwipe {
         direction: Direction,
         action: String,
@@ -27,6 +33,19 @@ pub enum Gesture {
         duration: i64,
         action: String,
     },
+}
+
+impl Gesture {
+    pub fn listen(self) -> Box<dyn GestureListener> {
+        match self {
+            Gesture::ThreeFingerSwipeGradual { direction, action } => Box::new(ThreeFingerSwipeGradualListener::new(direction, action)),
+            Gesture::ThreeFingerSwipe { direction, action } => Box::new(ThreeFingerSwipeListener::new(direction, action)),
+            Gesture::FourFingerSwipe { direction, action } => Box::new(FourFingerSwipeListener::new(direction, action)),
+            Gesture::Pinch { action } => Box::new(PinchListener::new(action)),
+            Gesture::Spread { action } => Box::new(SpreadListener::new(action)),
+            Gesture::Hold { duration, action } => Box::new(HoldListener::new(action, duration)),
+        }
+    }
 }
 
 #[derive(Deserialize, PartialEq)]
