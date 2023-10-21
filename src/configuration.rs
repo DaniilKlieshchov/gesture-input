@@ -1,4 +1,4 @@
-use std::fs;
+use std::{fs, path::Path};
 
 use serde::Deserialize;
 
@@ -48,7 +48,7 @@ impl Gesture {
     }
 }
 
-#[derive(Deserialize, PartialEq)]
+#[derive(Deserialize, PartialEq, Debug)]
 pub enum Direction {
     Down,
     Up,
@@ -56,7 +56,7 @@ pub enum Direction {
     Right,
 }
 
-pub fn get_configuration() -> Result<Config, serde_yaml::Error> {
-    let data = fs::read_to_string("config.yaml").unwrap();
+pub fn get_configuration(path: &Path) -> Result<Config, serde_yaml::Error> {
+    let data = fs::read_to_string(path).unwrap();
     serde_yaml::from_str(&data)
 }
