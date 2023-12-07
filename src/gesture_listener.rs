@@ -11,11 +11,9 @@ use input::event::GestureEvent::Pinch;
 use input::event::GestureEvent::Swipe;
 use timer::{Guard, Timer};
 
-
 pub trait GestureListener {
     fn fire(&mut self, event: &GestureEvent);
 }
-
 
 pub struct ThreeFingerSwipeListener {
     direction: Direction,
@@ -70,14 +68,13 @@ impl GestureListener for ThreeFingerSwipeListener {
                             .arg("-c")
                             .arg(self.action.as_str())
                             .output();
-                        
+
                         match command {
                             Ok(output) => {
                                 tracing::info!(?output, "Command output")
-                            },
+                            }
                             Err(error) => tracing::error!(?error, "Bash command threw an error"),
                         }
-                
                     }
                 }
                 _ => tracing::warn!(?event, "Got unsupported event"),
@@ -131,14 +128,13 @@ impl GestureListener for ThreeFingerSwipeGradualListener {
                         .arg("-c")
                         .arg(self.action.as_str())
                         .output();
-                    
+
                     match command {
                         Ok(output) => {
                             tracing::info!(?output, "Command output")
-                        },
+                        }
                         Err(error) => tracing::error!(?error, "Bash command threw an error"),
                     }
-                    
                 }
             }
         }
@@ -199,11 +195,11 @@ impl GestureListener for FourFingerSwipeListener {
                             .arg(self.action.as_str())
                             .output();
                         match command {
-                        Ok(output) => {
-                            tracing::info!(?output, "Command output")
-                        },
-                        Err(error) => tracing::error!(?error, "Bash command threw an error"),
-                    }
+                            Ok(output) => {
+                                tracing::info!(?output, "Command output")
+                            }
+                            Err(error) => tracing::error!(?error, "Bash command threw an error"),
+                        }
                     }
                 }
                 _ => tracing::warn!(?event, "Got unsupported event"),
@@ -220,10 +216,7 @@ pub struct PinchListener {
 
 impl PinchListener {
     pub fn new(action: String) -> Self {
-        Self {
-            action,
-            scale: 1.0,
-        }
+        Self { action, scale: 1.0 }
     }
 }
 
@@ -244,11 +237,11 @@ impl GestureListener for PinchListener {
                             .arg(self.action.as_str())
                             .output();
                         match command {
-                        Ok(output) => {
-                            tracing::info!(?output, "Command output")
-                        },
-                        Err(error) => tracing::error!(?error, "Bash command threw an error"),
-                    }
+                            Ok(output) => {
+                                tracing::info!(?output, "Command output")
+                            }
+                            Err(error) => tracing::error!(?error, "Bash command threw an error"),
+                        }
                     }
                 }
                 _ => tracing::warn!(?event, "Got unsupported event"),
@@ -265,10 +258,7 @@ pub struct SpreadListener {
 
 impl SpreadListener {
     pub fn new(action: String) -> Self {
-        Self {
-            action,
-            scale: 1.0,
-        }
+        Self { action, scale: 1.0 }
     }
 }
 
@@ -289,11 +279,11 @@ impl GestureListener for SpreadListener {
                             .arg(self.action.as_str())
                             .output();
                         match command {
-                        Ok(output) => {
-                            tracing::info!(?output, "Command output")
-                        },
-                        Err(error) => tracing::error!(?error, "Bash command threw an error"),
-                    }
+                            Ok(output) => {
+                                tracing::info!(?output, "Command output")
+                            }
+                            Err(error) => tracing::error!(?error, "Bash command threw an error"),
+                        }
                     }
                 }
                 _ => tracing::warn!(?event, "Got unsupported event"),
@@ -334,11 +324,13 @@ impl GestureListener for HoldListener {
                             let command =
                                 Command::new("sh").arg("-c").arg(command.as_str()).output();
                             match command {
-                        Ok(output) => {
-                            tracing::info!(?output, "Command output")
-                        },
-                        Err(error) => tracing::error!(?error, "Bash command threw an error"),
-                    }
+                                Ok(output) => {
+                                    tracing::info!(?output, "Command output")
+                                }
+                                Err(error) => {
+                                    tracing::error!(?error, "Bash command threw an error")
+                                }
+                            }
                         },
                     );
 
