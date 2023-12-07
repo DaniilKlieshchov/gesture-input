@@ -1,0 +1,46 @@
+gestures: 
+  - !ThreeFingerSwipeGradual
+      direction: Down
+      action: 'amixer sset Master 1%-'
+
+  - !ThreeFingerSwipeGradual
+      direction: Up
+      action: 'amixer sset Master 1%+'   
+
+  - !Pinch
+      action: echo 'pinched'
+
+  - !Spread
+      action: echo 'spreaded'
+
+  - !FourFingerSwipe
+      direction: Down
+      action: echo 'swiped down with 4 fingers'
+
+  - !FourFingerSwipe
+      direction: Up
+      action: echo 'swiped up with 4 fingers'
+
+  - !FourFingerSwipe
+      direction: Left
+      action: echo 'swiped left with 4 fingers'
+
+  - !FourFingerSwipe
+      direction: Right
+      action: echo 'swiped right with 4 fingers'
+
+#   - !ThreeFingerSwipe
+#       direction: Down
+#       action: echo 'swiped down with 3 fingers'
+  
+#   - !ThreeFingerSwipe
+#       direction: Up
+#       action: echo 'swiped up with 3 fingers'
+
+  - !Hold
+      duration: 500
+      action: "echo 'held for 500 milliseconds'"
+
+  - !Hold
+      duration: 5000
+      action: "echo 'held for 5000 milliseconds (5 seconds)'"
